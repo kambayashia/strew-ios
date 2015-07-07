@@ -42,7 +42,7 @@ class Strew : NSObject, UIWebViewDelegate {
   }
   
   class func makeRequest(params:Parameters) -> NSURLRequest {
-    let url = NSURL(string: "\(baseUrl)/channel/ios/\(params.token)/\(params.channel)")
+    let url = NSURL(string: "\(baseUrl)/channel/ios/start/\(params.token)/\(params.channel)")
     var req = NSURLRequest(URL: url!)
     return req
   }
@@ -78,7 +78,7 @@ class Strew : NSObject, UIWebViewDelegate {
         println("removed from superview")
         view.removeFromSuperview()
       }
-      if let data = view.stringByEvaluatingJavaScriptFromString("fetch();")?.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
+      if let data = view.stringByEvaluatingJavaScriptFromString("Strew.fetch();")?.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
         if let commandData = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as?  Dictionary<String, AnyObject> {
           if let commands = commandData["commands"] as? Array<Dictionary<String, AnyObject>> {
             let params = self.params
